@@ -19,7 +19,7 @@ class EmailMessage extends Message{
     send():void{
         console.log(`Gửi email đến ${this.recipient}`);
         console.log(`Nội dung: ${this.content}`);
-        console.log("--------------------------------")
+        console.log("-------------------------------")
     }
 }
 
@@ -32,7 +32,7 @@ class SMSMessage extends Message{
     send():void {
         console.log(`Gửi SMS đến ${this.recipient}`)
         console.log(`Nội dung: ${this.content}`);
-        console.log("--------------------------------")
+        console.log("-------------------------------")
     }
 }
 
