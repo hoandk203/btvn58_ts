@@ -1,80 +1,67 @@
-// Lớp trừu tượng Message
-abstract class Message {
-    protected sender: string;
+abstract class Message{
     protected recipient: string;
     protected content: string;
 
-    constructor(sender: string, recipient: string, content: string) {
-        this.sender = sender;
-        this.recipient = recipient;
-        this.content = content;
+    protected constructor(recipient: string, content: string) {
+        this.recipient= recipient;
+        this.content= content;
     }
 
-    abstract send(): void;
+    abstract send():void;
 }
 
-// Lớp EmailMessage kế thừa từ Message
-class EmailMessage extends Message {
-    private subject: string;
+class EmailMessage extends Message{
 
-    constructor(sender: string, recipient: string, content: string, subject: string) {
-        super(sender, recipient, content);
-        this.subject = subject;
+    constructor(recipient: string, content: string) {
+        super(recipient, content);
     }
 
-    send(): void {
-        console.log(`Gửi email từ ${this.sender} đến ${this.recipient}`);
-        console.log(`Chủ đề: ${this.subject}`);
+    send():void{
+        console.log(`Gửi email đến ${this.recipient}`);
         console.log(`Nội dung: ${this.content}`);
+        console.log("--------------------------------")
     }
 }
 
-// Lớp SMSMessage kế thừa từ Message
-class SMSMessage extends Message {
-    private phoneNumber: string;
+class SMSMessage extends Message{
 
-    constructor(sender: string, recipient: string, content: string, phoneNumber: string) {
-        super(sender, recipient, content);
-        this.phoneNumber = phoneNumber;
+    constructor(recipient: string, content: string){
+        super(recipient, content);
     }
 
-    send(): void {
-        console.log(`Gửi SMS từ ${this.sender} đến ${this.recipient}`);
-        console.log(`Số điện thoại: ${this.phoneNumber}`);
+    send():void {
+        console.log(`Gửi SMS đến ${this.recipient}`)
         console.log(`Nội dung: ${this.content}`);
+        console.log("--------------------------------")
     }
 }
 
-// Lớp User để quản lý việc gửi tin nhắn
-class User {
+class User{
     private name: string;
+    private email: string;
+    private phone: string;
 
-    constructor(name: string) {
-        this.name = name;
+    constructor(name: string, email: string, phone: string){
+        this.name= name;
+        this.email= email;
+        this.phone= phone;
     }
 
-    sendMessage(message: Message): void {
-        message.send();
+    sendMessage(message: Message):void{
+        console.log(`Người gửi: ${this.name}`)
+        console.log(`Email: ${this.email}`)
+        console.log(`Số điện thoại: ${this.phone}`)
+
+        message.send()
     }
 }
 
-// Ví dụ sử dụng
-const user = new User("Nguyen Van A");
+const user1= new User("Thái Việt Hoàn", "hoanyttv@gmail.com", "0842500199");
 
-// Gửi email
-const email = new EmailMessage(
-    "nguyen.van.a@example.com",
-    "nguyen.van.b@example.com",
-    "Xin chào, đây là email test",
-    "Email Test"
-);
-user.sendMessage(email);
+const emailMessage1= new EmailMessage("nguoinhan1@gmail.com", "hello test email 1")
 
-// Gửi SMS
-const sms = new SMSMessage(
-    "Nguyen Van A",
-    "Nguyen Van B",
-    "Xin chào, đây là SMS test",
-    "0123456789"
-);
-user.sendMessage(sms);
+const smsMessage1= new SMSMessage("0123456789", "hello test SMS 1")
+
+user1.sendMessage(emailMessage1)
+
+user1.sendMessage(smsMessage1)
